@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Match {
     private Team homeTeam;
     private Team awayTeam;
@@ -8,7 +10,7 @@ public class Match {
     private Referee centralReferee;
     private Referee assistantReferee1;
     private Referee assistantReferee2;
-    private Goal[] goals;
+    private ArrayList<Goal> goals;
     private int goalCount;
 
     // Constructor to initialize teams for the match
@@ -20,12 +22,12 @@ public class Match {
         this.centralReferee = null;
         this.assistantReferee1 = null;
         this.assistantReferee2 = null;
-        this.goals = new Goal[20];
+        this.goals = new ArrayList<Goal>();
         this.goalCount = 0;
     }
 
     public String registerGoalAndAssist(String scorerName, String assistName) {
-        if (goalCount >= goals.length) {
+        if (goalCount >= goals.size()) {
             return "Cannot register more goals in this match.";
         }
 
@@ -35,7 +37,7 @@ public class Match {
         }
 
         Player assist = assistName != null ? (homeTeam.getPlayerByName(assistName) != null ? homeTeam.getPlayerByName(assistName) : awayTeam.getPlayerByName(assistName)) : null;
-        goals[goalCount++] = new Goal(scorer, assist);
+        goals.add(new Goal(scorer, assist));
         return "Goal and assist registered successfully.";
     }
 
@@ -109,5 +111,18 @@ public class Match {
                " (Central), " + (assistantReferee1 != null ? assistantReferee1.getName() : "Not Assigned") +
                " (Assistant 1), " + (assistantReferee2 != null ? assistantReferee2.getName() : "Not Assigned") +
                "\n";
+    }
+
+    public String getMatch(){
+        return homeTeam.getName() + "(" + homeScore + ") " + " vs " + awayTeam.getName() + "(" + awayScore + ")\n"; 
+    }
+
+
+    public String obtainHomeTeamName(){
+        return homeTeam.getName();
+    }
+
+    public String obtainAwayTeamName(){
+        return awayTeam.getName();
     }
 }

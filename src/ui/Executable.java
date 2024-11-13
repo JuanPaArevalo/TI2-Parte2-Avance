@@ -171,19 +171,83 @@ public class Executable {
 
     private void registerGoalAndAssist() {
 
-        /*
-        System.out.print("Enter match ID: ");
-        int matchID = reader.nextInt();
-        reader.nextLine();
-        */
 
-        System.out.print("Enter scoring player name: ");
-        String scorerName = reader.nextLine();
+        System.out.println("Group stage final scores: ");
+        System.out.println(cont.showMatches());
 
-        System.out.print("Enter assisting player name (or type 'NONE' if no assist): ");
-        String assistName = reader.nextLine();
+        String homeTeamName = "";
+        String awayTeamName = "";
 
-        String result = cont.registerGoalAndAssist(scorerName, assistName.equals("NONE") ? null : assistName); //matchID
-        System.out.println(result);
+        boolean flag = true; 
+
+        while(flag){
+            System.out.print("Enter the name of the home team: ");
+            homeTeamName = reader.nextLine();
+
+            while(cont.searchTeam(homeTeamName)==null){
+                System.out.println("That team does not exist in this tournament, please enter a valid option.");
+                homeTeamName = reader.nextLine();
+            }
+
+            System.out.print("Enter the name of the away team: ");
+            awayTeamName = reader.nextLine();
+
+            while(cont.searchTeam(awayTeamName)==null){
+                System.out.println("That team does not exist in this tournament, please enter a valid option.");
+                awayTeamName = reader.nextLine();
+            }
+
+
+            if(cont.verifyMatch(homeTeamName, awayTeamName)) {
+                flag = false;
+            } else {
+                System.out.println("That match does not exist in this tournament yet. Please enter a valid option.");
+            }
+        }
+
+        String scorerName = "";
+        int tshirtNumberScorer = 0;
+        boolean access;
+        
+        do { 
+        
+            System.out.print("Enter scoring player name: ");
+            scorerName = reader.nextLine();
+
+            System.out.println("Enter t-shirt number of the scoring player: ");
+            tshirtNumberScorer = reader.nextInt();
+
+            access = cont.verifyPlayerInATeam(homeTeamName,awayTeamName,scorerName,tshirtNumberScorer);
+
+            if(!access){
+              System.out.println("The player does not exist in any of the teams. Enter a valid options.");  
+            }
+
+        } while(!access);
+
+        String assisterName = "";
+        int tshirtNumberAssister = 0;
+
+
+        do { 
+        
+            System.out.println("Enter assisting player name: ");
+            assisterName = reader.nextLine();
+            reader.nextLine();
+
+            System.out.println("Enter t-shirt number of the scoring player: ");
+            tshirtNumberAssister = reader.nextInt();
+
+            access = cont.verifyPlayerInATeam(homeTeamName,awayTeamName,assisterName,tshirtNumberAssister);
+
+            if(!access){
+              System.out.println("The player does not exist in any of the teams. Enter a valid options.");  
+            }
+
+        } while(!access);
+
+
+        /*String result = cont.registerGoalAndAssist(scorerName, assistName.equals("NONE") ? null : assistName); //matchID 
+        System.out.println(result);*/
     }
 }

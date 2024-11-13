@@ -67,4 +67,13 @@ public class Team {
     public Player[] getPlayers() {
         return players;
     }
+
+    public Player getPlayerByNameAndTshirt(String name,int tshirtNumber) {
+        for(int i = 0; i < players.length; i++) {
+            if(players[i] != null && players[i].getName().equalsIgnoreCase(name) && players[i].getPlayerNumber()==tshirtNumber) {
+                return players[i];
+            }
+        }
+        return null;
+    }
 }

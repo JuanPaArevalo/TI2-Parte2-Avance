@@ -417,10 +417,10 @@ public class Controller {
     
         return message;
     }
-
+    /*
     public String registerGoalAndAssist(String scorerName, String assistName) { //int matchID
         return groupStage.registerGoalAndAssist(scorerName, assistName); //matchID
-    }
+    }*/
 
     public String registerGoal(String scoringTeamName, String scorerName, String assistName) {
         Team team = searchTeam(scoringTeamName);
@@ -448,42 +448,42 @@ public class Controller {
     }
 
     public String[] assignReferees(Referee[] referees, String group) {
-    // Separate central and assistant referees
-    List<Referee> centralReferees = new ArrayList<>();
-    List<Referee> assistantReferees = new ArrayList<>();
+        // Separate central and assistant referees
+        List<Referee> centralReferees = new ArrayList<>();
+        List<Referee> assistantReferees = new ArrayList<>();
 
-    // Split referees by type
-    for (Referee referee : referees) {
-        if (referee != null) {
-            if (referee.getRefType() == RefereeType.CENTRAL) {
-                centralReferees.add(referee);
-            } else if (referee.getRefType() == RefereeType.ASSISTANT) {
-                assistantReferees.add(referee);
+        // Split referees by type
+        for (Referee referee : referees) {
+            if (referee != null) {
+                if (referee.getRefType() == RefereeType.CENTRAL) {
+                    centralReferees.add(referee);
+                } else if (referee.getRefType() == RefereeType.ASSISTANT) {
+                    assistantReferees.add(referee);
+                }
             }
         }
+
+        // Ensure we have at least one central and two assistants
+        if (centralReferees.size() > 0 && assistantReferees.size() > 1) {
+            // Randomly shuffle both lists
+            Collections.shuffle(centralReferees);
+            Collections.shuffle(assistantReferees);
+
+            // Select one central referee and two assistant referees
+            Referee centralReferee = centralReferees.get(0);
+            Referee assistantReferee1 = assistantReferees.get(0);
+            Referee assistantReferee2 = assistantReferees.get(1);
+
+            // Return the assigned referees as a formatted string array
+            return new String[]{
+                centralReferee.getName() + " (" + centralReferee.getCountry() + ") - Central",
+                assistantReferee1.getName() + " (" + assistantReferee1.getCountry() + ") - Assistant",
+                assistantReferee2.getName() + " (" + assistantReferee2.getCountry() + ") - Assistant"
+            };
+        }
+
+        return null; // If we don't have enough referees, return null
     }
-
-    // Ensure we have at least one central and two assistants
-    if (centralReferees.size() > 0 && assistantReferees.size() > 1) {
-        // Randomly shuffle both lists
-        Collections.shuffle(centralReferees);
-        Collections.shuffle(assistantReferees);
-
-        // Select one central referee and two assistant referees
-        Referee centralReferee = centralReferees.get(0);
-        Referee assistantReferee1 = assistantReferees.get(0);
-        Referee assistantReferee2 = assistantReferees.get(1);
-
-        // Return the assigned referees as a formatted string array
-        return new String[]{
-            centralReferee.getName() + " (" + centralReferee.getCountry() + ") - Central",
-            assistantReferee1.getName() + " (" + assistantReferee1.getCountry() + ") - Assistant",
-            assistantReferee2.getName() + " (" + assistantReferee2.getCountry() + ") - Assistant"
-        };
-    }
-
-    return null; // If we don't have enough referees, return null
-}
 
     
     
@@ -498,11 +498,25 @@ public class Controller {
             referees[j] = temp;
         }
     }
-
+    
     public String registerMatchScores() {
-    return groupStage.registerMatchScores();  // Delegate to GroupStage to handle match score registration
-}
+        return groupStage.registerMatchScores();  // Delegate to GroupStage to handle match score registration
+    } 
 
 
+    public String showMatches(){
+        return groupStage.showMatchesWithScores();
+    }
+
+    public boolean verifyMatch(String homeTeamName, String awayTeamName) {
+        return groupStage.verifyMatch(homeTeamName, awayTeamName);
+    }
+
+    public boolean verifyPlayerInATeam(String homeTeamName, String awayTeamName,String playerName, int tshirtNumberScorer) {
+        if( (searchTeam(homeTeamName) != null && searchTeam(awayTeamName) != null) && (searchTeam(homeTeamName).getPlayerByNameAndTshirt(playerName, tshirtNumberScorer) != null || searchTeam(awayTeamName).getPlayerByNameAndTshirt(playerName, tshirtNumberScorer) != null)) {
+            return true;
+        }
+        return false;
+    }
 
 }

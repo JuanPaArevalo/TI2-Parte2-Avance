@@ -136,4 +136,25 @@ public class GroupStage {
         return matches[matchID].registerGoalAndAssist(scorerName, assistName);
     }
     */
+
+   public String showMatchesWithScores(){
+        String message = "\n";
+        for(int i=0; i<matches.length;i++){
+            if(matches[i]!=null){
+                message += matches[i].getMatch();
+            }
+        }
+
+        return message;
+   }
+
+   public boolean verifyMatch(String homeTeamName, String awayTeamName) {
+        for(Match m: matches) {
+            if(m != null && m.obtainHomeTeamName().equalsIgnoreCase(homeTeamName) && m.obtainAwayTeamName().equalsIgnoreCase(awayTeamName)){
+                return true;
+            }
+        }
+
+        return false;
+   }
 }
