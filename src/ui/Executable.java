@@ -205,46 +205,53 @@ public class Executable {
             }
         }
 
-        String scorerName = "";
-        int tshirtNumberScorer = 0;
-        boolean access;
         
-        do { 
+       
+       
         
+         
+        
+        System.out.print("Enter scoring player name: ");
+        String scorerName = reader.nextLine();
+
+        System.out.println("Enter t-shirt number of the scoring player: ");
+        int tshirtNumberScorer = reader.nextInt();
+        reader.nextLine();
+
+        while(!cont.verifyPlayerInATeam(homeTeamName,awayTeamName,scorerName,tshirtNumberScorer)){
+            System.out.println("The player does not exist in any of the teams. Enter a valid options.");
             System.out.print("Enter scoring player name: ");
             scorerName = reader.nextLine();
-
             System.out.println("Enter t-shirt number of the scoring player: ");
             tshirtNumberScorer = reader.nextInt();
+            reader.nextLine();
+        }
 
-            access = cont.verifyPlayerInATeam(homeTeamName,awayTeamName,scorerName,tshirtNumberScorer);
-
-            if(!access){
-              System.out.println("The player does not exist in any of the teams. Enter a valid options.");  
-            }
-
-        } while(!access);
-
-        String assisterName = "";
-        int tshirtNumberAssister = 0;
-
-
-        do { 
+    
         
+        System.out.println("Enter assisting player name: ");
+        String assisterName = reader.nextLine();
+        
+
+        System.out.println("Enter t-shirt number of the scoring player: ");
+        int tshirtNumberAssister = reader.nextInt();
+        reader.nextLine();
+
+        while(!cont.verifyPlayerInATeam(homeTeamName,awayTeamName,assisterName,tshirtNumberAssister)){
+            System.out.println("The player does not exist in any of the teams. Enter a valid options.");
             System.out.println("Enter assisting player name: ");
             assisterName = reader.nextLine();
-            reader.nextLine();
-
             System.out.println("Enter t-shirt number of the scoring player: ");
             tshirtNumberAssister = reader.nextInt();
+        }
 
-            access = cont.verifyPlayerInATeam(homeTeamName,awayTeamName,assisterName,tshirtNumberAssister);
+        if(!cont.addScorerAndAssister(cont.searchTeam(homeTeamName), cont.searchTeam(awayTeamName), cont.searchPlayer(scorerName,tshirtNumberScorer), cont.searchPlayer(assisterName,tshirtNumberAssister))){
+            System.out.println("Could not register goal.");
+        } else {
+            System.out.println("Goal was successfully added");
+        }
 
-            if(!access){
-              System.out.println("The player does not exist in any of the teams. Enter a valid options.");  
-            }
 
-        } while(!access);
 
 
         /*String result = cont.registerGoalAndAssist(scorerName, assistName.equals("NONE") ? null : assistName); //matchID 

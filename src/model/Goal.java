@@ -16,4 +16,8 @@ public class Goal {
     public Player getAssist() {
         return assist;
     }
+
+    public void addGoalToScorer(){
+        scorer.addGoal();
+    }
 }

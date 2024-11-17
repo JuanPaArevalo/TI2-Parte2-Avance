@@ -56,4 +56,10 @@ public class Player extends Person implements IWaterDrinker {
     public String drinkWater() {
         return "Im drinking water";
     }
+
+    public void addGoal(){
+        goals++;
+
+        System.out.println(name + " tiene " + goals + " goles.");
+    }
 }

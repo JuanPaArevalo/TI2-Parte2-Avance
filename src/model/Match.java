@@ -125,4 +125,14 @@ public class Match {
     public String obtainAwayTeamName(){
         return awayTeam.getName();
     }
+
+
+    public boolean addGoalToMatch(Player scorer, Player assister){
+
+        Goal goal = new Goal(scorer,assister);
+        goal.addGoalToScorer();
+        goals.add(goal);
+        return true;
+
+    }
 }

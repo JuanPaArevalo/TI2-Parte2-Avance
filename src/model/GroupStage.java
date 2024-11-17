@@ -157,4 +157,17 @@ public class GroupStage {
 
         return false;
    }
+
+
+   public boolean addScorerAndAssister(Team homeTeam, Team awayTeam, Player scorer, Player assister){
+
+        for(Match m:matches){
+            if(m!=null && m.getHomeTeam()==homeTeam && m.getAwayTeam()==awayTeam){
+                return m.addGoalToMatch(scorer,assister);
+            }
+        }
+
+        return false;
+
+   }
 }

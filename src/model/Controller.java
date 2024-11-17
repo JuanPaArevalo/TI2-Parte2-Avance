@@ -519,4 +519,23 @@ public class Controller {
         return false;
     }
 
+    public Player searchPlayer(String name, int tshirt){
+        for(Team t:teams){
+            if(t!=null && t.getPlayerByNameAndTshirt(name,tshirt)!=null){
+
+                return t.getPlayerByNameAndTshirt(name,tshirt);
+
+            }
+        }
+
+        return null;
+    }
+
+
+    public boolean addScorerAndAssister(Team homeTeam, Team awayTeam, Player scorer, Player assister){
+
+        return groupStage.addScorerAndAssister(homeTeam,awayTeam,scorer,assister);
+
+    }
+
 }
