@@ -546,23 +546,43 @@ public class Controller {
         Team awayTeam = searchTeam(awayTeamName);
 
         if(homeTeam == null || awayTeam == null) {
+            System.out.println("Debug - Teams null");
             return false;
         }
 
         Player player = searchPlayer(playerName, tshirtNumber);
 
         if(player == null) {
+            System.out.println("Debug - Player null");
             return false;
         }
+        Team playerTeam = getPlayerTeam(homeTeamName, awayTeamName, playerName, tshirtNumber);
 
-        for(Match match : matches) {
-            if(match != null && match.getHomeTeam() == homeTeam && match.getAwayTeam() == awayTeam) {
-                return match.registerCard(player, cardType);
-            }
+        if(cardType.equalsIgnoreCase("Yellow")){
+            player.addYellowCard();
+            playerTeam.addYellowCard();
+            return true;
         }
+        if(cardType.equalsIgnoreCase("red")){
+            player.addRedCard();
+            playerTeam.addRedCard();
+            return true;
+        }
+        System.out.println("Debug - all failed");
         return false;
     }
 
+    public Team getPlayerTeam(String homeTeamName, String awayTeamName,String playerName, int tshirtNumberScorer) {
+        if((searchTeam(homeTeamName) != null && searchTeam(awayTeamName) != null)) {
+            if((searchTeam(homeTeamName).getPlayerByNameAndTshirt(playerName, tshirtNumberScorer) != null)){
+                return searchTeam(homeTeamName);
+            } else {
+                return searchTeam(awayTeamName);
+            }
+        }
+        System.out.println("Caremonda");
+        return null;
+    }
     /*
     public String registerCard(String homeTeamName, String awayTeamName, String playerName, String cardType) { //Nuevo
         Match match = findMatch(homeTeamName, awayTeamName);

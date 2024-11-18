@@ -6,6 +6,8 @@ public class Team {
     private String coach;
     private Player[] players;
     private int playerCount;
+    private int yellowCards;
+    private int redCards;
 
     public Team(String name, String country, String coach) {
         this.name = name;
@@ -13,6 +15,8 @@ public class Team {
         this.coach = coach;
         this.players = new Player[20]; // Maximum 20 players per team
         this.playerCount = 0;
+        this.yellowCards = 0;
+        this.redCards = 0;
     }
 
     // Getters and setters
@@ -76,4 +80,13 @@ public class Team {
         }
         return null;
     }
+
+    public void addYellowCard(){
+        this.yellowCards++;
+    }
+
+    public void addRedCard(){
+        this.redCards++;
+    }
+
 }
