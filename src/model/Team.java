@@ -89,4 +89,16 @@ public class Team {
         this.redCards++;
     }
 
+    public Player getTopScorer() {
+        Player topScorer = players[0];
+
+        for(int i = 0; i < players.length; i++) {
+
+            if(players[i] != null && topScorer.getNumberOfGoals() < players[i].getNumberOfGoals()) {
+                topScorer = players[i];
+            }
+        }
+        return topScorer;
+    }
+
 }

@@ -586,4 +586,58 @@ public class Controller {
         return groupStage.generateStandings();
     }
 
+    public String tournamentsTopScorer() {
+
+        ArrayList<Player> topScorers = new ArrayList<>();
+        ArrayList<Team> playersTeam = new ArrayList<>();
+
+        for(int i = 0; i < teams.length; i++) {
+
+            if(teams[i] != null) {
+
+                if(teams[i].getTopScorer().getNumberOfGoals() > 0) {
+                    topScorers.add(teams[i].getTopScorer());
+                    playersTeam.add(teams[i]);
+                }
+            }
+        }
+
+        if(topScorers.isEmpty()) {
+            return "No players are registered yet, maybe try again later.";
+        }
+        return sortTopScorer(topScorers, playersTeam);
+    }
+
+    public String sortTopScorer(ArrayList<Player> topScorers, ArrayList<Team> playersTeam) {
+        Player tempPlayer = null;
+        Team tempTeam = null;
+
+        for(int i = 0; i < topScorers.size(); i++) {
+
+            for(int j=(i + 1); j < topScorers.size(); j++) {
+                if(topScorers.get(i).getNumberOfGoals() < topScorers.get(j).getNumberOfGoals()) {
+                    tempPlayer = topScorers.get(j);
+                    topScorers.set(j, topScorers.get(i));
+                    topScorers.set(i, tempPlayer);
+
+                    tempTeam = playersTeam.get(j);
+                    playersTeam.set(j, playersTeam.get(i));
+                    playersTeam.set(i, tempTeam);
+                }
+            }
+        }
+        return topScorersMessage(topScorers, playersTeam);
+    }
+
+    public String topScorersMessage(ArrayList<Player> topScorers, ArrayList<Team> playersTeam) {
+        String message = "\n Tournament's top scorers:  \n";
+
+        message += "Pos     | Player    | Goals     |Team   \n";
+
+        for(int i = 0; i < topScorers.size(); i++) {
+            message += (i + 1) + "          " + topScorers.get(i).getName() + "             " + topScorers.get(i).getNumberOfGoals() + "            " + playersTeam.get(i).getName() + " \n";
+        }
+        return message;
+    }
+
 }

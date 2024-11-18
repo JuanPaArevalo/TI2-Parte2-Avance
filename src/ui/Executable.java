@@ -32,8 +32,9 @@ public class Executable {
                                 + "7. Register match scores \n" 
                                 + "8. Register goal and assits \n"
                                 + "9. Register cards \n"
-                                + "10. Show group stage final positions \n" 
-                                + "11. Exit \n");
+                                + "10. Show group stage final positions \n"
+                                + "11. Show tournament's top scorer \n" 
+                                + "12. Exit \n");
 
             int option = reader.nextInt();
             reader.nextLine(); // Clear buffer
@@ -70,6 +71,9 @@ public class Executable {
                     showGroupStagePositions();
                     break;
                 case 11:
+                    showTournamentsTopScorer();
+                    break;
+                case 12:
                     flag = true;
                     System.exit(0);
                     break;
@@ -335,6 +339,10 @@ public class Executable {
 
     public void showGroupStagePositions() {
         System.out.println(cont.printTablePosition());
+    }
+
+    public void showTournamentsTopScorer() {
+        System.out.println(cont.tournamentsTopScorer());
     }
 
 }

@@ -61,6 +61,10 @@ public class Player extends Person implements IWaterDrinker {
         System.out.println(name + " has " + goals + " goals.");
     }
 
+    public int getNumberOfGoals() {
+        return goals;
+    }
+
     public void addYellowCard() { 
         this.yellowCards++;
         System.out.println(name + " has " + yellowCards + " yellow cards.");
