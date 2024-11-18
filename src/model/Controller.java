@@ -25,7 +25,7 @@ public class Controller {
         this.referees = new Referee[12];
         this.refereeCount = 0;
         this.groupStage = new GroupStage();
-        this.matches = matches; //Nuevo
+        this.matches = new Match[12]; //Nuevo 
     }
 
     /**
@@ -555,6 +555,10 @@ public class Controller {
     }
 
     private Match findMatch(String homeTeamName, String awayTeamName) { //Nuevo
+        if(matches == null || matches.length == 0) { //Nuevo
+            return null;
+        }
+
         for(Match match : matches) {
             if(match != null && match.getHomeTeam().getName().equalsIgnoreCase(homeTeamName) && match.getAwayTeam().getName().equalsIgnoreCase(awayTeamName)) {
                 return match;
@@ -564,6 +568,10 @@ public class Controller {
     }
     
     public Player findPlayer(String playerName) { //Nuevo
+        if(teams == null || teams.length == 0) { //Nuevo
+            return null;
+        }
+        
         for(Team team : teams) {
             if(team != null) {
                 Player player = team.getPlayerByName(playerName);
