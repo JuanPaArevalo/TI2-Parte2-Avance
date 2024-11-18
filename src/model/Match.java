@@ -140,6 +140,18 @@ public class Match {
 
     }
 
+    public boolean  registerCard(Player player, String cardType) { //Nuevo
+        if(cardType.equalsIgnoreCase("yellow")) {
+            player.addYellowCard();
+            return true;
+        } else if(cardType.equalsIgnoreCase("red")) {
+            player.addRedCard();
+            return true;
+        }
+        return false;
+    }
+
+    /*
     public boolean registerCard(String playerName, String cardType) {
         Player player = homeTeam.getPlayerByName(playerName);
         if(player == null) {
@@ -157,8 +169,9 @@ public class Match {
             return false;
         }
         return true;
-    } 
-    
+    }
+    */ 
+
     /*
     public boolean registerCard(String playerName, String cardType) { //Nuevo
         Player player = homeTeam.getPlayerByName(playerName);

@@ -541,6 +541,29 @@ public class Controller {
 
     }
 
+    public boolean addCardToMatch(String homeTeamName, String awayTeamName, String playerName, int tshirtNumber, String cardType) { //Nuevo
+        Team homeTeam = searchTeam(homeTeamName);
+        Team awayTeam = searchTeam(awayTeamName);
+
+        if(homeTeam == null || awayTeam == null) {
+            return false;
+        }
+
+        Player player = searchPlayer(playerName, tshirtNumber);
+
+        if(player == null) {
+            return false;
+        }
+
+        for(Match match : matches) {
+            if(match != null && match.getHomeTeam() == homeTeam && match.getAwayTeam() == awayTeam) {
+                return match.registerCard(player, cardType);
+            }
+        }
+        return false;
+    }
+
+    /*
     public String registerCard(String homeTeamName, String awayTeamName, String playerName, String cardType) { //Nuevo
         Match match = findMatch(homeTeamName, awayTeamName);
         if(match == null) {
@@ -571,7 +594,7 @@ public class Controller {
         if(teams == null || teams.length == 0) { //Nuevo
             return null;
         }
-        
+
         for(Team team : teams) {
             if(team != null) {
                 Player player = team.getPlayerByName(playerName);
@@ -582,5 +605,6 @@ public class Controller {
         }
         return null;
     }
+    */
 
 }

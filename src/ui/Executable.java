@@ -262,6 +262,74 @@ public class Executable {
         System.out.println(result);*/
     }
 
+    private void registerCardsToPlayer() { //Nuevo
+        System.out.println("Group stage matches: ");
+        System.out.println(cont.showMatches());
+
+        String homeTeamName = "";
+        String awayTeamName = "";
+
+        boolean flag = true;
+
+        while(flag) {
+            System.out.println("Enter the name of the home team: ");
+            homeTeamName = reader.nextLine();
+
+            while(cont.searchTeam(homeTeamName) == null) {
+                System.out.println("That team does not exist in this tournament, please enter a valid option.");
+                homeTeamName = reader.nextLine();
+            }
+
+            System.out.println("Enter the name of the away team: ");
+            awayTeamName = reader.nextLine();
+
+            while(cont.searchTeam(awayTeamName) == null) {
+                System.out.println("That team does not exist in this tournament, please enter a valid option.");
+                awayTeamName = reader.nextLine();
+            }
+
+            if(cont.verifyMatch(homeTeamName, awayTeamName)) {
+                flag = false;
+            } else {
+                System.out.println("That match does not exist in this tournament yet. Please enter a valid option.");
+            }
+        }
+
+        System.out.println("Enter player name: ");
+        String playerName = reader.nextLine();
+
+        System.out.println("Enter the t-shirt number of the player: ");
+        int tshirtNumber = reader.nextInt();
+        reader.nextLine();
+
+        while(!cont.verifyPlayerInATeam(homeTeamName, awayTeamName, playerName, tshirtNumber)) {
+            System.out.println("The player does not exist in any of the teams. Enter a valid option.");
+            System.out.println("Enter player name: ");
+            playerName = reader.nextLine();
+            System.out.println("Enter the t-shirt number of the player: ");
+            tshirtNumber = reader.nextInt();
+            reader.nextLine();
+        }
+
+        System.out.println("Enter the type of card (yellow/red): ");
+        String cardType = reader.nextLine().toLowerCase();
+
+        while (!cardType.equals("yellow") && !cardType.equals("red")) {
+            System.out.println("Invalid card type. Please enter 'yellow' or 'red'.");
+            System.out.println("Enter the type of card (yellow/red): ");
+            cardType = reader.nextLine().toLowerCase();
+        }
+
+        boolean result = cont.addCardToMatch(homeTeamName, awayTeamName, playerName, tshirtNumber, cardType);
+
+        if(result) {
+            System.out.println("Card successfully registered.");
+        } else {
+            System.out.println("Could not register the card.");
+        }
+    }
+
+    /*
     public void registerCardsToPlayer() { //Nuevo
         System.out.println("Enter the name of the home team: ");
         String homeTeamName = reader.nextLine();
@@ -278,4 +346,5 @@ public class Executable {
         String result = cont.registerCard(homeTeamName, awayTeamName, playerName, cardType);
         System.out.println(result);
     }
+    */
 }
