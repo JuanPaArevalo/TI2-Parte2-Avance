@@ -1,7 +1,7 @@
 package model;
 
 import model.Team;
-import model.Match; //Nuevo
+import model.Match; 
 import model.Player;
 import model.Referee;
 import model.PlayerPosition;
@@ -18,14 +18,14 @@ public class Controller {
     private Referee[] referees;
     private int refereeCount;
     private GroupStage groupStage;
-    private Match[] matches; //Nuevo
+    private Match[] matches; 
 
     public Controller() {
         this.teams = new Team[8];
         this.referees = new Referee[12];
         this.refereeCount = 0;
         this.groupStage = new GroupStage();
-        this.matches = new Match[12]; //Nuevo 
+        this.matches = new Match[12]; 
     }
 
     /**
@@ -541,7 +541,7 @@ public class Controller {
 
     }
 
-    public boolean addCardToMatch(String homeTeamName, String awayTeamName, String playerName, int tshirtNumber, String cardType) { //Nuevo
+    public boolean addCardToMatch(String homeTeamName, String awayTeamName, String playerName, int tshirtNumber, String cardType) {
         Team homeTeam = searchTeam(homeTeamName);
         Team awayTeam = searchTeam(awayTeamName);
 
@@ -580,48 +580,10 @@ public class Controller {
         }
         return null;
     }
-    /*
-    public String registerCard(String homeTeamName, String awayTeamName, String playerName, String cardType) { //Nuevo
-        Match match = findMatch(homeTeamName, awayTeamName);
-        if(match == null) {
-            return "Match not found.";
-        }
 
-        boolean success = match.registerCard(playerName, cardType);
-        if (!success) {
-            return "Player not found or invalid card type.";
-        }
-        return "Card was successfully registered.";
+
+    public String printTablePosition(){
+        return groupStage.generateStandings();
     }
-
-    private Match findMatch(String homeTeamName, String awayTeamName) { //Nuevo
-        if(matches == null || matches.length == 0) { //Nuevo
-            return null;
-        }
-
-        for(Match match : matches) {
-            if(match != null && match.getHomeTeam().getName().equalsIgnoreCase(homeTeamName) && match.getAwayTeam().getName().equalsIgnoreCase(awayTeamName)) {
-                return match;
-            }
-        }
-        return null;
-    }
-    
-    public Player findPlayer(String playerName) { //Nuevo
-        if(teams == null || teams.length == 0) { //Nuevo
-            return null;
-        }
-
-        for(Team team : teams) {
-            if(team != null) {
-                Player player = team.getPlayerByName(playerName);
-                if(player != null) {
-                    return player;
-                }
-            }
-        }
-        return null;
-    }
-    */
 
 }

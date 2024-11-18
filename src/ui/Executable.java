@@ -31,8 +31,9 @@ public class Executable {
                                 + "6. Assign referees to match \n" 
                                 + "7. Register match scores \n" 
                                 + "8. Register goal and assits \n"
-                                + "9. Register cards \n" //Nuevo
-                                + "10. Exit \n");
+                                + "9. Register cards \n"
+                                + "10. Show group stage final positions \n" 
+                                + "11. Exit \n");
 
             int option = reader.nextInt();
             reader.nextLine(); // Clear buffer
@@ -62,10 +63,13 @@ public class Executable {
                 case 8:
                     registerGoalAndAssist();
                     break;
-                case 9: //Nuevo
-                    registerCardsToPlayer(); //Nuevo
+                case 9: 
+                    registerCardsToPlayer(); 
                     break;
                 case 10:
+                    showGroupStagePositions();
+                    break;
+                case 11:
                     flag = true;
                     System.exit(0);
                     break;
@@ -262,7 +266,7 @@ public class Executable {
         System.out.println(result);*/
     }
 
-    private void registerCardsToPlayer() { //Nuevo
+    private void registerCardsToPlayer() { 
         System.out.println("Group stage matches: ");
         System.out.println(cont.showMatches());
 
@@ -329,22 +333,8 @@ public class Executable {
         }
     }
 
-    /*
-    public void registerCardsToPlayer() { //Nuevo
-        System.out.println("Enter the name of the home team: ");
-        String homeTeamName = reader.nextLine();
-
-        System.out.println("Enter the name of the away team: ");
-        String awayTeamName = reader.nextLine();
-
-        System.out.println("Enter the player's name: ");
-        String playerName = reader.nextLine();
-
-        System.out.println("Enter the card type(yellow/red): ");
-        String cardType = reader.nextLine();
-
-        String result = cont.registerCard(homeTeamName, awayTeamName, playerName, cardType);
-        System.out.println(result);
+    public void showGroupStagePositions() {
+        System.out.println(cont.printTablePosition());
     }
-    */
+
 }

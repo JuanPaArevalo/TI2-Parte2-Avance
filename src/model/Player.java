@@ -13,20 +13,19 @@ public class Player extends Person implements IWaterDrinker {
         super(name, country);
         this.playerNumber = playerNumber;
         this.position = position;
-        this.goals = 0;    // Inicializamos en 0
-        this.assists = 0;  // Inicializamos en 0
+        this.goals = 0;    
+        this.assists = 0;  
     }
 
     public Player(int playerNumber, String name, String country, PlayerPosition position, int yellowCards, int redCards, int matchesPlayed) {
         super(name, country);
         this.playerNumber = playerNumber;
         this.position = position;
-        this.yellowCards = 0; //Nuevo
-        this.redCards = 0; //Nuevo
+        this.yellowCards = 0; 
+        this.redCards = 0; 
         this.matchesPlayed = matchesPlayed;
     }
 
-    // Métodos getters y setters
     public int getPlayerNumber() {
         return playerNumber;
     }
@@ -51,7 +50,6 @@ public class Player extends Person implements IWaterDrinker {
         this.assists++;
     }
 
-    //Método implementado de la interface
     @Override
     public String drinkWater() {
         return "Im drinking water";
@@ -63,19 +61,21 @@ public class Player extends Person implements IWaterDrinker {
         System.out.println(name + " has " + goals + " goals.");
     }
 
-    public void addYellowCard() { //Nuevo
+    public void addYellowCard() { 
         this.yellowCards++;
+        System.out.println(name + " has " + yellowCards + " yellow cards.");
     }
 
-    public void addRedCard() { //Nuevo
+    public void addRedCard() { 
         this.redCards++;
+        System.out.println(name + " has " + redCards + " red cards.");
     }
 
-    public int getYellowCards() { //Nuevo
+    public int getYellowCards() { 
         return yellowCards;
     }
 
-    public int getRedCards() { //Nuevo
+    public int getRedCards() { 
         return redCards;
     }
 }

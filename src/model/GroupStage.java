@@ -128,15 +128,6 @@ public class GroupStage {
         return result.toString();
     }
 
-    /*
-    public String registerGoalAndAssist(int matchID, String scorerName, String assistName) {
-        if (matchID < 0 || matchID >= matches.length || matches[matchID] == null) {
-            return "invalid match ID.";
-        }
-        return matches[matchID].registerGoalAndAssist(scorerName, assistName);
-    }
-    */
-
    public String showMatchesWithScores(){
         String message = "\n";
         for(int i=0; i<matches.length;i++){
@@ -170,4 +161,131 @@ public class GroupStage {
         return false;
 
    }
+
+
+
+
+   public String generateStandings() {
+        int[][] standingsGroupA = new int[4][9]; // 4 equipos, columnas: PJ, G, E, P, GF, GC, DG, Pts, Índice del equipo
+        int[][] standingsGroupB = new int[4][9];
+
+        // Calcular las estadísticas para el grupo A y B
+        for (Match match : matches) {
+            if (match != null) {
+                if (isTeamInGroup(match.getHomeTeam(), groupA)) {
+                    updateStandings(standingsGroupA, match.getHomeTeam(), match.getAwayTeam(), match.getHomeScore(), match.getAwayScore(), groupA);
+                } else if (isTeamInGroup(match.getHomeTeam(), groupB)) {
+                    updateStandings(standingsGroupB, match.getHomeTeam(), match.getAwayTeam(), match.getHomeScore(), match.getAwayScore(), groupB);
+                }
+            }
+        }
+
+        // Ordenar las tablas por los criterios
+        sortStandings(standingsGroupA);
+        sortStandings(standingsGroupB);
+
+        // Crear las tablas como cadenas de texto
+        String result = "Group A Standings:\n";
+        result += formatStandings(standingsGroupA, groupA);
+        result += "\nGroup B Standings:\n";
+        result += formatStandings(standingsGroupB, groupB);
+
+        return result;
+    }
+
+    private void updateStandings(int[][] standings, Team home, Team away, int homeScore, int awayScore, Team[] group) {
+        int homeIndex = getTeamIndex(home, group);
+        int awayIndex = getTeamIndex(away, group);
+
+        // Actualizar PJ (Partidos Jugados)
+        standings[homeIndex][0]++; // PJ para el equipo local
+        standings[awayIndex][0]++; // PJ para el equipo visitante
+
+        // Calcular resultado del partido
+        if (homeScore > awayScore) {
+            // Victoria del equipo local
+            standings[homeIndex][1]++; // G: Ganados
+            standings[homeIndex][7] += 3; // Pts: Puntos
+            standings[awayIndex][3]++; // P: Perdidos
+        } else if (homeScore < awayScore) {
+            // Victoria del equipo visitante
+            standings[awayIndex][1]++; // G: Ganados
+            standings[awayIndex][7] += 3; // Pts: Puntos
+            standings[homeIndex][3]++; // P: Perdidos
+        } else {
+            // Empate
+            standings[homeIndex][2]++; // E: Empatados
+            standings[awayIndex][2]++;
+            standings[homeIndex][7] += 1; // Pts: Puntos
+            standings[awayIndex][7] += 1;
+        }
+
+        // Actualizar GF (Goles a favor) y GC (Goles en contra)
+        standings[homeIndex][4] += homeScore; // GF
+        standings[homeIndex][5] += awayScore; // GC
+        standings[awayIndex][4] += awayScore; // GF
+        standings[awayIndex][5] += homeScore; // GC
+
+        // Calcular DG (Diferencia de Gol)
+        standings[homeIndex][6] = standings[homeIndex][4] - standings[homeIndex][5];
+        standings[awayIndex][6] = standings[awayIndex][4] - standings[awayIndex][5];
+
+        // Guardar el índice del equipo
+        standings[homeIndex][8] = homeIndex;
+        standings[awayIndex][8] = awayIndex;
+    }
+
+    private void sortStandings(int[][] standings) {
+        // Ordenar por Pts (desc), DG (desc), GF (desc), GC (asc)
+        java.util.Arrays.sort(standings, (a, b) -> {
+            if (b[7] != a[7]) return b[7] - a[7]; // Pts: Puntos
+            if (b[6] != a[6]) return b[6] - a[6]; // DG: Diferencia de Gol
+            if (b[4] != a[4]) return b[4] - a[4]; // GF: Goles a favor
+            return a[5] - b[5]; // GC: Goles en contra
+        });
+    }
+
+    private String formatStandings(int[][] standings, Team[] group) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Pos | Team                  | P | W  | D  | L  | GF | GA | GD | Pts\n");
+        sb.append("--------------------------------------------------------------------\n");
+        for (int i = 0; i < standings.length; i++) {
+            int teamIndex = standings[i][8];
+            Team team = group[teamIndex];
+            sb.append(String.format("%-4d| %-20s | %-2d | %-2d | %-2d | %-2d | %-2d | %-2d | %-2d | %-3d\n",
+                    (i + 1), // Posición
+                    team.getName(), // Nombre del equipo
+                    standings[i][0], // PJ
+                    standings[i][1], // G
+                    standings[i][2], // E
+                    standings[i][3], // P
+                    standings[i][4], // GF
+                    standings[i][5], // GC
+                    standings[i][6], // DG
+                    standings[i][7]  // Pts
+            ));
+        }
+        return sb.toString();
+    }
+
+
+    private boolean isTeamInGroup(Team team, Team[] group) {
+        for (Team t : group) {
+            if (t != null && t.equals(team)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private int getTeamIndex(Team team, Team[] group) {
+        for (int i = 0; i < group.length; i++) {
+            if (group[i] != null && group[i].equals(team)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
 }
