@@ -140,44 +140,4 @@ public class Match {
 
     }
 
-
-    /*
-    public boolean registerCard(String playerName, String cardType) {
-        Player player = homeTeam.getPlayerByName(playerName);
-        if(player == null) {
-            player = awayTeam.getPlayerByName(playerName);
-        }
-
-        if(player == null) {
-            return false;
-        }
-        if(cardType.equalsIgnoreCase("yellow")) {
-            player.addYellowCard();
-        } else if(cardType.equalsIgnoreCase("red")) {
-            player.addRedCard();
-        } else {
-            return false;
-        }
-        return true;
-    }
-    */ 
-
-    /*
-    public boolean registerCard(String playerName, String cardType) { //Nuevo
-        Player player = homeTeam.getPlayerByName(playerName);
-        if(player == null) {
-            return false;
-        }
-        if(cardType.equalsIgnoreCase("yellow")) {
-            player.addYellowCard();
-            yellowCards.add(playerName);
-        } else if(cardType.equalsIgnoreCase("red")) {
-            player.addRedCard();
-            redCards.add(playerName);
-        } else {
-            return false;
-        }
-        return true;
-    }
-    */
 }
