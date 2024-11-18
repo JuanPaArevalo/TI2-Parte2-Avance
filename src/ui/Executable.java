@@ -31,7 +31,8 @@ public class Executable {
                                 + "6. Assign referees to match \n" 
                                 + "7. Register match scores \n" 
                                 + "8. Register goal and assits \n"
-                                + "9. Exit \n");
+                                + "9. Register cards \n"
+                                + "10. Exit \n");
 
             int option = reader.nextInt();
             reader.nextLine(); // Clear buffer
@@ -62,6 +63,9 @@ public class Executable {
                     registerGoalAndAssist();
                     break;
                 case 9:
+                    registerCardsToPlayer();
+                    break;
+                case 10:
                     flag = true;
                     System.exit(0);
                     break;
@@ -256,5 +260,22 @@ public class Executable {
 
         /*String result = cont.registerGoalAndAssist(scorerName, assistName.equals("NONE") ? null : assistName); //matchID 
         System.out.println(result);*/
+    }
+
+    public void registerCardsToPlayer() {
+        System.out.println("Enter the name of the home team: ");
+        String homeTeamName = reader.nextLine();
+
+        System.out.println("Enter the name of the away team: ");
+        String awayTeamName = reader.nextLine();
+
+        System.out.println("Enter the player's name: ");
+        String playerName = reader.nextLine();
+
+        System.out.println("Enter the card type(yellow/red): ");
+        String cardType = reader.nextLine();
+
+        String result = cont.registerCard(homeTeamName, awayTeamName, playerName, cardType);
+        System.out.println(result);
     }
 }

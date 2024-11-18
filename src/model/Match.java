@@ -12,6 +12,8 @@ public class Match {
     private Referee assistantReferee2;
     private ArrayList<Goal> goals;
     private int goalCount;
+    private ArrayList<String> yellowCards;
+    private ArrayList<String> redCards;
 
     // Constructor to initialize teams for the match
     public Match(Team homeTeam, Team awayTeam) {
@@ -24,6 +26,8 @@ public class Match {
         this.assistantReferee2 = null;
         this.goals = new ArrayList<Goal>();
         this.goalCount = 0;
+        this.yellowCards = new ArrayList<>();
+        this.redCards = new ArrayList<>();
     }
 
     public String registerGoalAndAssist(String scorerName, String assistName) {
@@ -134,5 +138,22 @@ public class Match {
         goals.add(goal);
         return true;
 
+    }
+
+    public boolean registerCard(String playerName, String cardType) {
+        Player player = homeTeam.getPlayerByName(playerName);
+        if(player == null) {
+            return false;
+        }
+        if(cardType.equalsIgnoreCase("yellow")) {
+            player.addYellowCard();
+            yellowCards.add(playerName);
+        } else if(cardType.equalsIgnoreCase("red")) {
+            player.addRedCard();
+            redCards.add(playerName);
+        } else {
+            return false;
+        }
+        return true;
     }
 }
