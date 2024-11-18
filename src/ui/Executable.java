@@ -31,7 +31,7 @@ public class Executable {
                                 + "6. Assign referees to match \n" 
                                 + "7. Register match scores \n" 
                                 + "8. Register goal and assits \n"
-                                + "9. Register cards \n"
+                                + "9. Register cards \n" //Nuevo
                                 + "10. Exit \n");
 
             int option = reader.nextInt();
@@ -62,8 +62,8 @@ public class Executable {
                 case 8:
                     registerGoalAndAssist();
                     break;
-                case 9:
-                    registerCardsToPlayer();
+                case 9: //Nuevo
+                    registerCardsToPlayer(); //Nuevo
                     break;
                 case 10:
                     flag = true;
@@ -262,7 +262,7 @@ public class Executable {
         System.out.println(result);*/
     }
 
-    public void registerCardsToPlayer() {
+    public void registerCardsToPlayer() { //Nuevo
         System.out.println("Enter the name of the home team: ");
         String homeTeamName = reader.nextLine();
 

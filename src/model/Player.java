@@ -21,8 +21,8 @@ public class Player extends Person implements IWaterDrinker {
         super(name, country);
         this.playerNumber = playerNumber;
         this.position = position;
-        this.yellowCards = 0;
-        this.redCards = 0;
+        this.yellowCards = 0; //Nuevo
+        this.redCards = 0; //Nuevo
         this.matchesPlayed = matchesPlayed;
     }
 
@@ -63,19 +63,19 @@ public class Player extends Person implements IWaterDrinker {
         System.out.println(name + " tiene " + goals + " goles.");
     }
 
-    public void addYellowCard() {
+    public void addYellowCard() { //Nuevo
         this.yellowCards++;
     }
 
-    public void addRedCard() {
+    public void addRedCard() { //Nuevo
         this.redCards++;
     }
 
-    public int getYellowCards() {
+    public int getYellowCards() { //Nuevo
         return yellowCards;
     }
 
-    public int getRedCards() {
+    public int getRedCards() { //Nuevo
         return redCards;
     }
 }

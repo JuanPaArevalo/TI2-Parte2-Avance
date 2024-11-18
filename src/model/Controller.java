@@ -1,7 +1,7 @@
 package model;
 
 import model.Team;
-import model.Match;
+import model.Match; //Nuevo
 import model.Player;
 import model.Referee;
 import model.PlayerPosition;
@@ -18,14 +18,14 @@ public class Controller {
     private Referee[] referees;
     private int refereeCount;
     private GroupStage groupStage;
-    private Match[] matches;
+    private Match[] matches; //Nuevo
 
     public Controller() {
         this.teams = new Team[8];
         this.referees = new Referee[12];
         this.refereeCount = 0;
         this.groupStage = new GroupStage();
-        this.matches = matches;
+        this.matches = matches; //Nuevo
     }
 
     /**
@@ -541,7 +541,7 @@ public class Controller {
 
     }
 
-    public String registerCard(String homeTeamName, String awayTeamName, String playerName, String cardType) {
+    public String registerCard(String homeTeamName, String awayTeamName, String playerName, String cardType) { //Nuevo
         Match match = findMatch(homeTeamName, awayTeamName);
         if(match == null) {
             return "Match not found.";
@@ -554,7 +554,7 @@ public class Controller {
         return "Card was successfully registered.";
     }
 
-    private Match findMatch(String homeTeamName, String awayTeamName) {
+    private Match findMatch(String homeTeamName, String awayTeamName) { //Nuevo
         for(Match match : matches) {
             if(match != null && match.getHomeTeam().getName().equalsIgnoreCase(homeTeamName) && match.getAwayTeam().getName().equalsIgnoreCase(awayTeamName)) {
                 return match;
@@ -563,7 +563,7 @@ public class Controller {
         return null;
     }
     
-    public Player findPlayer(String playerName) {
+    public Player findPlayer(String playerName) { //Nuevo
         for(Team team : teams) {
             if(team != null) {
                 Player player = team.getPlayerByName(playerName);
