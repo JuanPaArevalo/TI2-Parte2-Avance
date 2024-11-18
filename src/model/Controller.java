@@ -635,7 +635,7 @@ public class Controller {
         message += "Pos     | Player    | Goals     |Team   \n";
 
         for(int i = 0; i < topScorers.size(); i++) {
-            message += (i + 1) + "          " + topScorers.get(i).getName() + "             " + topScorers.get(i).getNumberOfGoals() + "            " + playersTeam.get(i).getName() + " \n";
+            message += (i + 1) + "          " + topScorers.get(i).getName() + "          " + topScorers.get(i).getNumberOfGoals() + "          " + playersTeam.get(i).getName() + " \n";
         }
         return message;
     }
