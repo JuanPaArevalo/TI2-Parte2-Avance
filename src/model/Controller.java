@@ -546,14 +546,12 @@ public class Controller {
         Team awayTeam = searchTeam(awayTeamName);
 
         if(homeTeam == null || awayTeam == null) {
-            System.out.println("Debug - Teams null");
             return false;
         }
 
         Player player = searchPlayer(playerName, tshirtNumber);
 
         if(player == null) {
-            System.out.println("Debug - Player null");
             return false;
         }
         Team playerTeam = getPlayerTeam(homeTeamName, awayTeamName, playerName, tshirtNumber);
@@ -564,11 +562,11 @@ public class Controller {
             return true;
         }
         if(cardType.equalsIgnoreCase("red")){
+
             player.addRedCard();
             playerTeam.addRedCard();
             return true;
         }
-        System.out.println("Debug - all failed");
         return false;
     }
 
@@ -580,7 +578,6 @@ public class Controller {
                 return searchTeam(awayTeamName);
             }
         }
-        System.out.println("Caremonda");
         return null;
     }
     /*

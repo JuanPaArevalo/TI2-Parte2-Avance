@@ -140,17 +140,6 @@ public class Match {
 
     }
 
-    public boolean registerCard(Player player, String cardType) { //Nuevo
-        System.out.println("Debug - reached register card");
-        if(cardType.equalsIgnoreCase("yellow")) {
-            player.addYellowCard();
-            return true;
-        } else if(cardType.equalsIgnoreCase("red")) {
-            player.addRedCard();
-            return true;
-        }
-        return false;
-    }
 
     /*
     public boolean registerCard(String playerName, String cardType) {
