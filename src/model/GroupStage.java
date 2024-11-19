@@ -343,5 +343,53 @@ public class GroupStage {
         return "";
     }
 
+    public String getPlayerEfficiency(Team team, Player player) {
+
+        String groupName = "";
+        int teamIndex = 0;
+
+        for(int i=0; i<groupA.length; i++) {
+             if(groupA[i]!=null && groupA[i]==team) {
+                groupName = "A";
+                teamIndex = i;
+             }
+        }
+
+        for(int i=0; i<groupB.length; i++) {
+            if(groupB[i]!=null && groupB[i]==team) {
+               groupName = "B";
+               teamIndex = i;
+            }
+        }
+
+        int positionGamesPlayed = 0;
+
+        if(groupName.equals("A")) {
+
+            for(int i=0;i<finalStadingsGroupA.length; i++){
+                if(finalStadingsGroupA[i][8]==teamIndex) {
+
+                    int matchesPlayed = finalStadingsGroupA[i][positionGamesPlayed];
+
+                    return team.calculatePlayerEfficiency(matchesPlayed, player);
+                }
+            }
+            
+        } else {
+
+            for(int i=0;i<finalStadingsGroupB.length; i++){
+                if(finalStadingsGroupB[i][8]==teamIndex) {
+
+                    int matchesPlayed = finalStadingsGroupB[i][positionGamesPlayed];
+
+                    return team.calculatePlayerEfficiency(matchesPlayed, player);
+                }
+            }
+
+        }
+
+        return "";
+    }
+
 
 }

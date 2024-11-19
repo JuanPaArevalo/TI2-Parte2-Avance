@@ -90,4 +90,12 @@ public class Player extends Person implements IWaterDrinker {
     public void addRedCard(int t) { 
         this.redCards++;
     }
+
+    public String calculatePlayerEfficiency(int matchesPlayed) {
+
+        double efficiencyResult = ((double)goals/matchesPlayed)*(100);
+
+        return name + " played " + matchesPlayed + " matches, and scored " + goals + " goals. He had an efficiency of " + String.format("%.2f", efficiencyResult) + 
+        "%\n";
+    }
 }

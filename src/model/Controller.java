@@ -535,6 +535,15 @@ public class Controller {
     }
 
 
+    public Player searchPlayer(Team t, String playerName){
+        
+        return t.getPlayerByName(playerName);
+       
+    }
+
+
+
+
     public boolean addScorerAndAssister(Team homeTeam, Team awayTeam, Player scorer, Player assister){
 
         return groupStage.addScorerAndAssister(homeTeam,awayTeam,scorer,assister);
@@ -689,6 +698,13 @@ public class Controller {
         }
 
         return message;
+    }
+
+    public String displayPlayersOfATeam(String teamName) {
+        return searchTeam(teamName).getNamesOfPlayersOfTheTeam();
+    }
+    public String showEfficiencyOfAPlayer(Team team, Player player) {
+        return groupStage.getPlayerEfficiency(team, player);
     }
 
 }

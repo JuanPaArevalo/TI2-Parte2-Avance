@@ -62,7 +62,7 @@ public class Team {
     }
 
     public Player getPlayerByName(String name) {
-        for (int i = 0; i < playerCount; i++) {
+        for (int i = 0; i < players.length; i++) {
             if (players[i] != null && players[i].getName().equalsIgnoreCase(name)) {
                 return players[i];
             }
@@ -138,6 +138,22 @@ public class Team {
 
         return name + " played " + matchesPlayed + " matches, and won " + matchesWon + ". Had an efficiency of " + String.format("%.2f", efficiencyResult) + 
         "%\n";
+    }
+
+    public String getNamesOfPlayersOfTheTeam(){
+        String message = "Here you have the list of the " + name + ":\n\n";
+
+        for(Player p:players){
+            if(p!=null) {
+                message += p.getName() + ".\n";
+            }
+        }
+
+        return message + "\n";
+    }
+
+    public String calculatePlayerEfficiency(int matchesPlayed, Player player) {
+        return player.calculatePlayerEfficiency(matchesPlayed);
     }
 
 }

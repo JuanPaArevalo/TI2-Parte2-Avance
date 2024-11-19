@@ -35,8 +35,9 @@ public class Executable {
                                 + "10. Show group stage final positions \n"
                                 + "11. Show tournament's top scorer \n" 
                                 + "12. Show team with fair play \n"
-                                + "13. Show the efficiency of a team \n" 
-                                + "14. Exit \n");
+                                + "13. Show the efficiency of a team \n"
+                                + "14. Show the efficiency of a player \n" 
+                                + "15. Exit \n");
 
             int option = reader.nextInt();
             reader.nextLine(); // Clear buffer
@@ -82,6 +83,9 @@ public class Executable {
                     showTeamEfficiency();
                     break;
                 case 14:
+                    showPlayerEfficiency();
+                    break;
+                case 15:
                     flag = true;
                     System.exit(0);
                     break;
@@ -360,19 +364,39 @@ public class Executable {
     }
 
     public void showTeamEfficiency() {
-        System.out.println("Group stage matches: ");
         System.out.println(cont.displayTeamsOfTheTournament());
-        System.out.println("Please enter the name of the team");
+        System.out.println("Please enter the name of the team: ");
         String teamName = reader.nextLine();
 
         if(cont.searchTeam(teamName) == null) {
             System.out.println("Team not found.");
         } else {
             System.out.println(cont.showEfficiencyOfATeam(cont.searchTeam(teamName)));
-        }
-        
-        
-        
+        }  
+    }
+
+    public void showPlayerEfficiency() {
+        System.out.println(cont.displayTeamsOfTheTournament());
+        System.out.println("Please enter the name of the team: ");
+        String teamName = reader.nextLine();
+
+        if(cont.searchTeam(teamName) == null) {
+            System.out.println("Team not found.");
+        } else {
+
+            System.out.println(cont.displayPlayersOfATeam(teamName));
+
+            System.out.println("Enter the name of the player: ");
+            String playerName = reader.nextLine();
+
+            while(cont.searchPlayer(cont.searchTeam(teamName), playerName)==null){
+                System.out.println("Player not found. Please enter a valid option.");
+                playerName = reader.nextLine();
+            }
+
+            System.out.println(cont.showEfficiencyOfAPlayer(cont.searchTeam(teamName), cont.searchPlayer(cont.searchTeam(teamName), playerName)));
+
+        } 
     }
     
 
