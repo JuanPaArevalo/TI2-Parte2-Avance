@@ -7,12 +7,16 @@ public class GroupStage {
     private Team[] groupB;
     private Match[] matches;  // Array of Match objects instead of String[] for better data handling
     private String[] dates;
+    private int[][] finalStadingsGroupA;
+    private int[][] finalStadingsGroupB;
 
     public GroupStage() {
         this.groupA = new Team[4];
         this.groupB = new Team[4];
         this.matches = new Match[12]; // 6 matches per group for a total of 12 matches
         this.dates = new String[12];
+        this.finalStadingsGroupA = new int[4][9];
+        this.finalStadingsGroupB = new int[4][9];
     }
 
     // Método para distribuir aleatoriamente 8 equipos en 2 grupos de 4
@@ -162,8 +166,7 @@ public class GroupStage {
 
    }
 
-
-
+   
 
    public String generateStandings() {
         int[][] standingsGroupA = new int[4][9]; // 4 equipos, columnas: PJ, G, E, P, GF, GC, DG, Pts, Índice del equipo
@@ -189,6 +192,8 @@ public class GroupStage {
         result += formatStandings(standingsGroupA, groupA);
         result += "\nGroup B Standings:\n";
         result += formatStandings(standingsGroupB, groupB);
+        finalStadingsGroupA = standingsGroupA;
+        finalStadingsGroupB = standingsGroupB;
 
         return result;
     }
@@ -285,6 +290,57 @@ public class GroupStage {
             }
         }
         return -1;
+    }
+    
+    public String getTeamEfficiency(Team team) {
+
+        String groupName = "";
+        int teamIndex = 0;
+
+        for(int i=0; i<groupA.length; i++) {
+             if(groupA[i]!=null && groupA[i]==team) {
+                groupName = "A";
+                teamIndex = i;
+             }
+        }
+
+        for(int i=0; i<groupB.length; i++) {
+            if(groupB[i]!=null && groupB[i]==team) {
+               groupName = "B";
+               teamIndex = i;
+            }
+        }
+
+        int positionGamesPlayed = 0;
+        int positionGamesWon = 1;
+
+        if(groupName.equals("A")) {
+
+            for(int i=0;i<finalStadingsGroupA.length; i++){
+                if(finalStadingsGroupA[i][8]==teamIndex) {
+
+                    int matchesPlayed = finalStadingsGroupA[i][positionGamesPlayed];
+                    int matchesWon = finalStadingsGroupA[i][positionGamesWon];
+
+                    return team.calculateTeamEfficiency(matchesPlayed, matchesWon);
+                }
+            }
+            
+        } else {
+
+            for(int i=0;i<finalStadingsGroupB.length; i++){
+                if(finalStadingsGroupB[i][8]==teamIndex) {
+
+                    int matchesPlayed = finalStadingsGroupB[i][positionGamesPlayed];
+                    int matchesWon = finalStadingsGroupB[i][positionGamesWon];
+
+                    return team.calculateTeamEfficiency(matchesPlayed, matchesWon);
+                }
+            }
+
+        }
+
+        return "";
     }
 
 

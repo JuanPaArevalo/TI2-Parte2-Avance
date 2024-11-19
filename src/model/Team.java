@@ -132,4 +132,11 @@ public class Team {
         }
     }
 
+    public String calculateTeamEfficiency(int matchesPlayed, int matchesWon) {
+
+        double efficiencyResult = (double)matchesWon/matchesPlayed;
+
+        return name + " played " + matchesPlayed + " matches, and won " + matchesWon + ". Had an efficiency of " + efficiencyResult;
+    }
+
 }

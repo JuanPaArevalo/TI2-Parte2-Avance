@@ -34,8 +34,9 @@ public class Executable {
                                 + "9. Register cards \n"
                                 + "10. Show group stage final positions \n"
                                 + "11. Show tournament's top scorer \n" 
-                                + "12. Show team with fair play \n" 
-                                + "13. Exit \n");
+                                + "12. Show team with fair play \n"
+                                + "13. Show the efficiency of a team \n" 
+                                + "14. Exit \n");
 
             int option = reader.nextInt();
             reader.nextLine(); // Clear buffer
@@ -78,6 +79,9 @@ public class Executable {
                     showTeamWithMostFairPlay();
                     break;
                 case 13:
+                    showTeamEfficiency();
+                    break;
+                case 14:
                     flag = true;
                     System.exit(0);
                     break;
@@ -353,6 +357,22 @@ public class Executable {
         
         cont.cardsToTeamsByDefault();
         System.out.println(cont.showTeamWithFairPlay());
+    }
+
+    public void showTeamEfficiency() {
+        System.out.println("Group stage matches: ");
+        System.out.println(cont.showMatches());
+        System.out.println("Please enter the name of the team");
+        String teamName = reader.nextLine();
+
+        if(cont.searchTeam(teamName) == null) {
+            System.out.println("Team not found.");
+        } else {
+            System.out.println(cont.showEfficiencyOfATeam(cont.searchTeam(teamName)));
+        }
+        
+        
+        
     }
     
 

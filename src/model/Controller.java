@@ -674,4 +674,8 @@ public class Controller {
 
     }
 
+    public String showEfficiencyOfATeam(Team team) {
+        return groupStage.getTeamEfficiency(team);
+    }
+
 }
