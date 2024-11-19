@@ -640,4 +640,38 @@ public class Controller {
         return message;
     }
 
+    
+    public String showTeamWithFairPlay(){
+
+        Team teamWithMostFairPlay = teams[0];
+
+        for(int i = 0; i < teams.length; i++){
+            if(teams[i] != null && teamWithMostFairPlay.getNumberOfCards() <teams[i].getNumberOfCards()){
+                teamWithMostFairPlay = teams[i];
+            }
+        }
+
+        return "The team with the most Fair Play is: " + teamWithMostFairPlay.getName() + " . with " +teamWithMostFairPlay.getYellowCards() + " yellow cards and " + teamWithMostFairPlay.getRedCards() + " red cards.\n";
+    }
+
+
+
+    private boolean preloadCards = false;
+
+    public void cardsToTeamsByDefault(){
+
+        if(!preloadCards){
+
+            for(Team t:teams){
+                if(t!=null){
+                    t.addCardsToPlayers();
+                }
+            }
+
+        }
+
+        preloadCards = true;
+
+    }
+
 }

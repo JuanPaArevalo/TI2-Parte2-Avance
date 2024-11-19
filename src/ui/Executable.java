@@ -34,7 +34,8 @@ public class Executable {
                                 + "9. Register cards \n"
                                 + "10. Show group stage final positions \n"
                                 + "11. Show tournament's top scorer \n" 
-                                + "12. Exit \n");
+                                + "12. Show team with fair play \n" 
+                                + "13. Exit \n");
 
             int option = reader.nextInt();
             reader.nextLine(); // Clear buffer
@@ -74,6 +75,9 @@ public class Executable {
                     showTournamentsTopScorer();
                     break;
                 case 12:
+                    showTeamWithMostFairPlay();
+                    break;
+                case 13:
                     flag = true;
                     System.exit(0);
                     break;
@@ -344,5 +348,12 @@ public class Executable {
     public void showTournamentsTopScorer() {
         System.out.println(cont.tournamentsTopScorer());
     }
+
+    public void showTeamWithMostFairPlay() {
+        
+        cont.cardsToTeamsByDefault();
+        System.out.println(cont.showTeamWithFairPlay());
+    }
+    
 
 }

@@ -82,4 +82,12 @@ public class Player extends Person implements IWaterDrinker {
     public int getRedCards() { 
         return redCards;
     }
+
+    public void addYellowCard(int t) { 
+        this.yellowCards++;
+    }
+
+    public void addRedCard(int t) { 
+        this.redCards++;
+    }
 }

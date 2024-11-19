@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Random;
+
 public class Team {
     private String name;
     private String country;
@@ -89,6 +91,18 @@ public class Team {
         this.redCards++;
     }
 
+    public int getNumberOfCards() {
+        return yellowCards + redCards;
+    }
+
+    public int getYellowCards() { 
+        return yellowCards;
+    }
+
+    public int getRedCards() { 
+        return redCards;
+    }
+
     public Player getTopScorer() {
         Player topScorer = players[0];
 
@@ -99,6 +113,23 @@ public class Team {
             }
         }
         return topScorer;
+    }
+
+    public void addCardsToPlayers(){
+
+        Random random = new Random();
+
+        for(Player p:players){
+            if(p!=null){
+                int numberYellowCards = random.nextInt(3);
+                int numberRedCards = random.nextInt(3);
+
+                p.addYellowCard(numberYellowCards);
+                yellowCards += numberYellowCards; 
+                p.addRedCard(numberRedCards);
+                redCards += numberRedCards;
+            }
+        }
     }
 
 }
