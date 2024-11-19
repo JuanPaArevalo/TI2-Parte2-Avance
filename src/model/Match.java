@@ -140,4 +140,23 @@ public class Match {
 
     }
 
+
+
+    public boolean verifyCentralReferee(Referee referee) {
+        if(centralReferee!=null && centralReferee==referee) {
+            return true;
+        }
+
+        return false;
+    }
+
+
+    public boolean verifyTeamsOfTheGroup(Team homeTeam, Team awayTeam) {
+        if(this.homeTeam == homeTeam && this.awayTeam == awayTeam) {
+            return true;
+        }
+
+        return false;
+    }
+
 }

@@ -420,6 +420,20 @@ public class Controller {
     
         return message;
     }
+
+
+    public String assignReferee(){
+        String[] refereeMessage = groupStage.assignReferee(matches,teams, referees);
+
+        String message = "\n";
+
+        for(int i=0; i<refereeMessage.length; i++) {
+            message += refereeMessage [i] + "\n";
+        }
+
+        return message;
+
+    }
     /*
     public String registerGoalAndAssist(String scorerName, String assistName) { //int matchID
         return groupStage.registerGoalAndAssist(scorerName, assistName); //matchID
@@ -476,6 +490,8 @@ public class Controller {
             Referee centralReferee = centralReferees.get(0);
             Referee assistantReferee1 = assistantReferees.get(0);
             Referee assistantReferee2 = assistantReferees.get(1);
+
+           
 
             // Return the assigned referees as a formatted string array
             return new String[]{
@@ -554,6 +570,7 @@ public class Controller {
         Team homeTeam = searchTeam(homeTeamName);
         Team awayTeam = searchTeam(awayTeamName);
 
+
         if(homeTeam == null || awayTeam == null) {
             return false;
         }
@@ -568,12 +585,14 @@ public class Controller {
         if(cardType.equalsIgnoreCase("Yellow")){
             player.addYellowCard();
             playerTeam.addYellowCard();
+            
             return true;
         }
         if(cardType.equalsIgnoreCase("red")){
 
             player.addRedCard();
             playerTeam.addRedCard();
+            
             return true;
         }
         return false;
@@ -703,8 +722,42 @@ public class Controller {
     public String displayPlayersOfATeam(String teamName) {
         return searchTeam(teamName).getNamesOfPlayersOfTheTeam();
     }
+
+
     public String showEfficiencyOfAPlayer(Team team, Player player) {
         return groupStage.getPlayerEfficiency(team, player);
+    }
+
+
+
+    public String getCentralReferees(){
+        String message = "\nHere you have the list of central referees:\n\n";
+
+        for(Referee r:referees) {
+            if(r!=null && r.getRefType()==RefereeType.CENTRAL){
+                message += r.getRefInformation();
+            }
+        }
+
+        return message;
+    }
+
+
+    public Referee searchReferee(int id) {
+        for(Referee r : referees) {
+            if(r != null && r.getRefType()==RefereeType.CENTRAL && r.getId() == id) {
+                return r;
+            }
+        }
+        return null;
+    }
+
+    public String getCardIndex(Referee referee) {
+
+        int numMatches = groupStage.obtainMatchesOfAReferee(referee);
+
+        return referee.calculateCardIndex(numMatches);
+
     }
 
 }

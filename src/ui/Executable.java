@@ -36,8 +36,9 @@ public class Executable {
                                 + "11. Show tournament's top scorer \n" 
                                 + "12. Show team with fair play \n"
                                 + "13. Show the efficiency of a team \n"
-                                + "14. Show the efficiency of a player \n" 
-                                + "15. Exit \n");
+                                + "14. Show the efficiency of a player \n"
+                                + "15. Show the referee card index \n"  
+                                + "16. Exit \n");
 
             int option = reader.nextInt();
             reader.nextLine(); // Clear buffer
@@ -86,6 +87,9 @@ public class Executable {
                     showPlayerEfficiency();
                     break;
                 case 15:
+                    showRefereeCardIndex();
+                    break;
+                case 16:
                     flag = true;
                     System.exit(0);
                     break;
@@ -180,6 +184,8 @@ public class Executable {
         mainApp.run(flag);
     }
 
+    
+
     // Método para asignar árbitros a un grupo
     public void assignRefereesToGroup() {
         System.out.print("Enter group (A or B): ");
@@ -192,6 +198,10 @@ public class Executable {
 
         System.out.println(cont.assignRefereesToGroup(group));
     }
+
+
+
+
 
     private void registerGoalAndAssist() {
 
@@ -283,6 +293,7 @@ public class Executable {
     }
 
     private void registerCardsToPlayer() { 
+
         System.out.println("Group stage matches: ");
         System.out.println(cont.showMatches());
 
@@ -397,6 +408,23 @@ public class Executable {
             System.out.println(cont.showEfficiencyOfAPlayer(cont.searchTeam(teamName), cont.searchPlayer(cont.searchTeam(teamName), playerName)));
 
         } 
+    }
+
+    public void showRefereeCardIndex() {
+
+        System.out.println(cont.getCentralReferees());
+
+        System.out.println("Please enter the referee ID to continiue: ");
+        int id = reader.nextInt();
+
+        while(cont.searchReferee(id) == null) {
+            System.out.println("ID was not valid, please try again.");
+            id = reader.nextInt();
+        }
+
+        System.out.println(cont.getCardIndex(cont.searchReferee(id)));
+
+
     }
     
 

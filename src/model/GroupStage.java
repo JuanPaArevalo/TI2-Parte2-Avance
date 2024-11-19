@@ -80,7 +80,7 @@ public class GroupStage {
     }
 
     // Método para asignar árbitros a los partidos según nacionalidad
-    public String[] assignReferees(Team[] teams, Referee[] referees, String group) {
+    /*public String[] assignReferees(Team[] teams, Referee[] referees, String group) {
         String[] assignedReferees = new String[6]; // Cada grupo tiene 6 partidos
 
         // Filtrar árbitros disponibles por nacionalidad
@@ -104,7 +104,41 @@ public class GroupStage {
         }
 
         return assignedReferees;
+    }*/
+
+
+    public String[] assignReferee(Match[] matches, Team[] teams, Referee[] referees) {
+        String[] assignedRefereesMessages = new String[matches.length]; // Mensajes para cada partido
+        int refereeIndex = 0;
+    
+        // Filtrar árbitros y asignarlos a los partidos
+        for (int i = 0; i < matches.length; i++) {
+            Match match = matches[i];
+            if (match != null) {
+                for (; refereeIndex < referees.length; refereeIndex++) {
+                    Referee referee = referees[refereeIndex];
+                    if (referee != null 
+                        && !referee.getCountry().equals(match.getHomeTeam().getCountry()) 
+                        && !referee.getCountry().equals(match.getAwayTeam().getCountry())) {
+                        
+                        // Asignar árbitro al partido
+                        match.setCentralReferee(referee);
+                        
+                        // Generar mensaje descriptivo
+                        assignedRefereesMessages[i] = "Match: " + match.getHomeTeam().getName() + " vs " + match.getAwayTeam().getName() +
+                                                      " - Referee: " + referee.getName() + " (" + referee.getRefType() + ")";
+                        
+                        // Pasar al siguiente árbitro disponible
+                        refereeIndex++;
+                        break;
+                    }
+                }
+            }
+        }
+    
+        return assignedRefereesMessages;
     }
+    
 
     // Method to register match scores
     public String registerMatchScores() {
@@ -389,6 +423,29 @@ public class GroupStage {
         }
 
         return "";
+    }
+
+    public int obtainMatchesOfAReferee(Referee referee){
+
+        int numMatches = 0;
+
+        for(Match m:matches) {
+            if(m!=null && m.verifyCentralReferee(referee)) {
+                numMatches++;
+            }
+        }
+
+        return numMatches;
+    }
+
+    public Referee getCentralRefereeOfAMatch(Team homeTeam, Team awayTeam) {
+        for(Match m:matches){
+            if(m!=null && m.verifyTeamsOfTheGroup(homeTeam,awayTeam)) {
+                return m.getCentralReferee();
+            }
+        }
+
+        return null;
     }
 
 
