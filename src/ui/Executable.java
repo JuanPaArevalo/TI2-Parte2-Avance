@@ -361,7 +361,7 @@ public class Executable {
 
     public void showTeamEfficiency() {
         System.out.println("Group stage matches: ");
-        System.out.println(cont.showMatches());
+        System.out.println(cont.displayTeamsOfTheTournament());
         System.out.println("Please enter the name of the team");
         String teamName = reader.nextLine();
 

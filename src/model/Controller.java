@@ -678,4 +678,17 @@ public class Controller {
         return groupStage.getTeamEfficiency(team);
     }
 
+
+    public String displayTeamsOfTheTournament(){
+        String message = "Here you have the list of the teams of the tournament: \n\n";
+
+        for(Team t:teams){
+            if(t!=null){
+                message += t.getName() + "\n";
+            }
+        }
+
+        return message;
+    }
+
 }
