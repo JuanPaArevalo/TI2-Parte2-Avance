@@ -651,7 +651,7 @@ public class Controller {
             }
         }
 
-        return "The team with the most Fair Play is: " + teamWithMostFairPlay.getName() + " . with " +teamWithMostFairPlay.getYellowCards() + " yellow cards and " + teamWithMostFairPlay.getRedCards() + " red cards.\n";
+        return "The team with the most Fair Play is: " + teamWithMostFairPlay.getName() + " with " +teamWithMostFairPlay.getYellowCards() + " yellow cards and " + teamWithMostFairPlay.getRedCards() + " red cards.\n";
     }
 
 
